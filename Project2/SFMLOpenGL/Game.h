@@ -28,6 +28,7 @@ public:
 	Game(sf::ContextSettings settings);
 	~Game();
 	void run();
+	float yrotate=0;
 	int screenWidth = 800;
 	int screenHeight = 600;
 private:

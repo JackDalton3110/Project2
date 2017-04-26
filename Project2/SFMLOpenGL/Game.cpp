@@ -72,13 +72,14 @@ void Game::run()
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			{
 				// Set Model Rotation
-				model = rotate(model, 0.01f, glm::vec3(0, 1, 0)); // Rotate
+				model = rotate(model, 0.1f, glm::vec3(0, 1, 0)); // Rotate
+				
 			}
 
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 			{
 				// Set Model Rotation
-				model = rotate(model, -0.01f, glm::vec3(0, 1, 0)); // Rotate
+				model = rotate(model, -0.1f, glm::vec3(0, 1, 0)); // Rotate
 			}
 
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -92,6 +93,35 @@ void Game::run()
 				// Set Model Rotation
 				model = rotate(model, 0.01f, glm::vec3(1, 0, 0)); // Rotate
 			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			{
+				yrotate -= 0.1;
+				view = lookAt(
+					vec3(0.0f, 4.0f, 10.0f),	// Camera (x,y,z), in World Space
+					vec3(yrotate, 0.0f, 0.0f),		// Camera looking at origin
+					vec3(0.0f, 1.0f, 0.0f)		// 0.0f, 1.0f, 0.0f Look Down and 0.0f, -1.0f, 0.0f Look Up
+				);
+				if (yrotate < -10)
+				{
+					yrotate = 10;
+				}
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			{
+				yrotate += 0.1;
+				//view = translate(view, glm::vec3(-1, 0, 0));
+				view = lookAt(
+					vec3(0.0f, 4.0f, 10.0f),	// Camera (x,y,z), in World Space
+					vec3(yrotate, 0.0f, 0.0f),		// Camera looking at origin
+					vec3(0.0f, 1.0f, 0.0f)		// 0.0f, 1.0f, 0.0f Look Down and 0.0f, -1.0f, 0.0f Look Up
+				);
+				if (yrotate > 10)
+				{
+					yrotate = -10;
+				}
+
+			}
+
 		}
 		update();
 		render();
@@ -281,7 +311,7 @@ void Game::initialize()
 	// Projection Matrix 
 	projection = perspective(
 		45.0f,					// Field of View 45 degrees
-		8.0f / 8.0f,			// Aspect ratio
+		4.0f / 6.0f,			// Aspect ratio
 		5.0f,					// Display Range Min : 0.1f unit
 		100.0f					// Display Range Max : 100.0f unit
 		);
@@ -311,6 +341,8 @@ void Game::update()
 #endif
 	// Update Model View Projection
 	mvp = projection * view * model;
+	
+
 }
 
 void Game::render()
