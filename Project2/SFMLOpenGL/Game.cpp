@@ -95,33 +95,61 @@ void Game::run()
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
-				yrotate -= 0.1;
+				xrotate -= 0.1;
 				view = lookAt(
 					vec3(0.0f, 4.0f, 10.0f),	// Camera (x,y,z), in World Space
-					vec3(yrotate, 0.0f, 0.0f),		// Camera looking at origin
+					vec3(xrotate, yrotate, 0.0f),		// Camera looking at origin
 					vec3(0.0f, 1.0f, 0.0f)		// 0.0f, 1.0f, 0.0f Look Down and 0.0f, -1.0f, 0.0f Look Up
 				);
-				if (yrotate < -10)
+				if (xrotate < -10)
 				{
-					yrotate = 10;
+					xrotate = 10;
 				}
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			{
-				yrotate += 0.1;
+				xrotate += 0.1;
 				//view = translate(view, glm::vec3(-1, 0, 0));
 				view = lookAt(
 					vec3(0.0f, 4.0f, 10.0f),	// Camera (x,y,z), in World Space
-					vec3(yrotate, 0.0f, 0.0f),		// Camera looking at origin
+					vec3(xrotate, yrotate, 0.0f),		// Camera looking at origin
 					vec3(0.0f, 1.0f, 0.0f)		// 0.0f, 1.0f, 0.0f Look Down and 0.0f, -1.0f, 0.0f Look Up
 				);
-				if (yrotate > 10)
+				if (xrotate > 10)
 				{
-					yrotate = -10;
+					xrotate = -10;
 				}
 
 			}
 
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+			{
+				if (yrotate > -10)
+				{
+					yrotate -= 0.1;
+				}
+				
+				view = lookAt(
+					vec3(0.0f, 4.0f, 10.0f),	// Camera (x,y,z), in World Space
+					vec3(xrotate, yrotate, 0.0f),		// Camera looking at origin
+					vec3(0.0f, 1.0f, 0.0f)		// 0.0f, 1.0f, 0.0f Look Down and 0.0f, -1.0f, 0.0f Look Up
+				);
+				
+			}
+
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			{
+				if (yrotate < 6)
+				{
+					yrotate += 0.1;
+				}
+				
+				view = lookAt(
+					vec3(0.0f, 4.0f, 10.0f),	// Camera (x,y,z), in World Space
+					vec3(xrotate, yrotate, 0.0f),		// Camera looking at origin
+					vec3(0.0f, 1.0f, 0.0f)		// 0.0f, 1.0f, 0.0f Look Down and 0.0f, -1.0f, 0.0f Look Up
+				);
+			}
 		}
 		update();
 		render();
